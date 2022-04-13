@@ -103,9 +103,7 @@ func (t Transport) RoundTrip(r *http.Request) (*http.Response, error) {
 
 	// clear requestURI, set in call to director
 	r.RequestURI = ""
-
 	log.Printf("proxying request url=[%s] isJSONGRPC=[%t]\n", r.URL.String(), isGRPC)
-
 	resp, err := client.Do(r)
 	if err != nil {
 		log.Printf("unable to do request err=[%s]", err)
