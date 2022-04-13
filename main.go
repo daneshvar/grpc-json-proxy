@@ -18,7 +18,12 @@ var (
 	defaultIdleTimeout = time.Second * 60
 )
 
+const (
+	Version = "0.0.1"
+)
+
 func main() {
+	log.Printf("starting grpc-json-proxy %s", Version)
 	addr := flag.String("http-addr", "127.0.0.1:7001", "listen addr for HTTP server")
 
 	flag.Parse()
@@ -43,7 +48,6 @@ func main() {
 
 // StartProxy starts a httputil.ReverseProxy listening on addr
 func StartProxy(ctx context.Context, addr string, p *httputil.ReverseProxy) (context.Context, stopFunction, error) {
-
 	idleTimeout := defaultIdleTimeout
 
 	s := &http.Server{
@@ -74,7 +78,6 @@ func StartProxy(ctx context.Context, addr string, p *httputil.ReverseProxy) (con
 type stopFunction func(ctx context.Context) error
 
 func wait(ctx context.Context, stoppers ...stopFunction) {
-
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 
