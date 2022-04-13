@@ -1,4 +1,4 @@
-module github.com/jnewmano/grpc-json-proxy
+module github.com/daneshvar/grpc-json-proxy
 
 go 1.15
 

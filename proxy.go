@@ -35,7 +35,6 @@ type Transport struct {
 	to handle grpc+json requests
 */
 func NewProxy() *httputil.ReverseProxy {
-
 	h2NoTLSClient := &http.Client{
 		// Skip TLS dial
 		Transport: &http2.Transport{
@@ -78,7 +77,6 @@ func (t Transport) director(r *http.Request) {
   and outgoing response for grpc+json detection
 */
 func (t Transport) RoundTrip(r *http.Request) (*http.Response, error) {
-
 	isGRPC := false
 	if isJSONGRPC(r) {
 		if r.Method != http.MethodPost {
@@ -98,6 +96,7 @@ func (t Transport) RoundTrip(r *http.Request) (*http.Response, error) {
 		if r.Header.Get(headerUseInsecure) != "" {
 			client = t.H2NoTLSClient
 		} else {
+			r.URL.Scheme = "https"
 			client = t.H2Client
 		}
 	}
