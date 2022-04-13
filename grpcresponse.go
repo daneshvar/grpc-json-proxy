@@ -8,7 +8,6 @@ import (
 )
 
 func handleGRPCResponse(resp *http.Response) (*http.Response, error) {
-
 	// After Body.Read has returned io.EOF, Trailer will contain
 	// any trailer values sent by the server.
 	body := bytes.NewBuffer(nil)
@@ -32,7 +31,7 @@ func handleGRPCResponse(resp *http.Response) (*http.Response, error) {
 
 		resp.StatusCode = 500
 		resp.Body = io.NopCloser(buff)
-
+		resp.Header.Del(headerContentLength)
 		return resp, nil
 	}
 
@@ -42,9 +41,7 @@ func handleGRPCResponse(resp *http.Response) (*http.Response, error) {
 	resp.Body = io.NopCloser(body)
 
 	resp.Header.Del(headerContentLength)
-
 	return resp, nil
-
 }
 
 func metadata(resp *http.Response, field string) string {

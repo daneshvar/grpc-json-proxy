@@ -45,11 +45,9 @@ func modifyRequestToJSONgRPC(r *http.Request) *http.Request {
 	req.Header.Del(headerContentLength)
 
 	return req
-
 }
 
 func isJSONGRPC(r *http.Request) bool {
-
 	h := r.Header.Get("Content-Type")
 
 	if h == contentTypeGRPCJSON {
