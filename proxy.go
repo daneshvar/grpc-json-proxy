@@ -93,7 +93,7 @@ func (t Transport) RoundTrip(r *http.Request) (*http.Response, error) {
 
 	client := t.HTTPClient
 	if isGRPC {
-		if r.Header.Get(headerUseInsecure) != "" {
+		if r.Header.Get(headerUseInsecure) == "true" {
 			client = t.H2NoTLSClient
 		} else {
 			r.URL.Scheme = "https"
