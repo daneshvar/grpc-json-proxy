@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -25,6 +26,7 @@ func handleGRPCResponse(resp *http.Response) (*http.Response, error) {
 			Error: metadata(resp, headerGRPCMessage),
 			Code:  code,
 		}
+		log.Printf("gRPC response error=[%s]", r.Error)
 
 		buff := bytes.NewBuffer(nil)
 		_ = json.NewEncoder(buff).Encode(r)
