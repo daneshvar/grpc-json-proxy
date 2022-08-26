@@ -10,11 +10,23 @@ Configuration of the proxy and its dependencies is a three step process.
 
 1. Register a JSON codec with the gRPC server. In Go, it can be automatically registered simple by adding the following import:
 
-`import _"github.com/daneshvar/grpc-json-proxy/codec"`
+```go
+import "github.com/daneshvar/grpc-json-proxy/codec"
+
+func init() {
+    codec.Register()
+}
+```
 
 If you're using `gogo/protobuf` as your protobuf backend, import the following:
 
-`import _"github.com/daneshvar/grpc-json-proxy/gogoprotobuf/codec"`
+```go
+import "github.com/daneshvar/grpc-json-proxy/gogoprotobuf/codec"
+
+func init() {
+    codec.Register()
+}
+```
 
 2. Run the grpc-json-proxy. Download pre-built binaries from https://github.com/daneshvar/grpc-json-proxy/releases/ or build from source:
 

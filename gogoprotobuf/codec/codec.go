@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/encoding"
 )
 
-func init() {
+func Register() {
 	encoding.RegisterCodec(JSON{
 		Marshaler: jsonpb.Marshaler{
 			EmitDefaults: true,
